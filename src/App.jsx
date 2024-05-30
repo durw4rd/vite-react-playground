@@ -9,20 +9,18 @@ function App() {
   const { exampleBooleanFlag } = useFlags();
   const ldClient = useLDClient();
 
-  // const flagsFromClient = ldClient.allFlags(); // THROWS ERROR
+  // const flagsFromClient = ldClient.allFlags();
 
   // console.log(flags.exampleBooleanFlag);
-  // console.log(ldClient); // RETURNS UNDEFINED
+  // console.log(ldClient);
   // console.log(flagsFromClient);
 
   // Cody's code
   async function getUserContext() {
-    const context = await ldClient?.getContext()
+    const context = ldClient?.getContext()
     console.log(context)
     return context
   }
-
-
 
   return (
     <>
@@ -31,13 +29,7 @@ function App() {
         <button onClick={getUserContext} className="border-2 rounded-md bg-blue-500 text-white">
           Am I connected?
         </button> 
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
