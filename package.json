@@ -10,11 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "launchdarkly-react-client-sdk": "^3.3.0",
+    "launchdarkly-react-client-sdk": "^3.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@vitejs/plugin-react": "^4.2.1",

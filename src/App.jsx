@@ -1,26 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect } from 'react'
 import './App.css'
+// Below are the custom imports
+import { useFlags, useLDClient } from 'launchdarkly-react-client-sdk';
 
 function App() {
   const [count, setCount] = useState(0)
 
+  const { exampleBooleanFlag } = useFlags();
+  const ldClient = useLDClient();
+
+  // const flagsFromClient = ldClient.allFlags(); // THROWS ERROR
+
+  // console.log(flags.exampleBooleanFlag);
+  // console.log(ldClient); // RETURNS UNDEFINED
+  // console.log(flagsFromClient);
+
+  // Cody's code
+  async function getUserContext() {
+    const context = await ldClient?.getContext()
+    console.log(context)
+    return context
+  }
+
+
+
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
+      <h1>Vite React Playground</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+        <button onClick={getUserContext} className="border-2 rounded-md bg-blue-500 text-white">
+          Am I connected?
+        </button> 
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
