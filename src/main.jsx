@@ -13,21 +13,47 @@ const ldDefaultContext = {
   key: faker.string.uuid(),
   name: faker.person.fullName()
 };
+
+const flagEvalHandler = (flagKey, flagDetail) => {
+  let {
+    reason,
+    variationIndex,
+    value
+  } = flagDetail;
+  
+  console.log(flagDetail);
+
+  if (reason?.inExperiment === true) {
+    console.log(`##ANALYTICS## Flag ${flagKey} was evaluated to ${value} with variation index: ${variationIndex} and reason: ${reason}`);
+  }
+}
+
 const ldInitOptions = {
   logger: basicLogger({
     level: "info",
   }),
+  inspectors: [{
+    type: "flag-used",
+    name: "example-flag-used",
+    method: flagEvalHandler,
+  }],
   application: {
     version: "1.0.1",
     id: "vite-react-playground",
   }
 };
 
+const ldReactOptions = {
+  sendEventsOnFlagRead: false,
+  useCamelCaseFlagKeys: true
+};
+
 (async () => {
   const LDProvider = await asyncWithLDProvider({
     clientSideID: ldClientSideID,
     context: ldDefaultContext,
-    // options: ldInitOptions,
+    options: ldInitOptions,
+    reactOptions: ldReactOptions
   });
 
   ReactDOM.createRoot(document.getElementById('root')).render(
