@@ -21,10 +21,16 @@ const flagEvalHandler = (flagKey, flagDetail) => {
     value
   } = flagDetail;
   
-  console.log(flagDetail);
+  if (!window.dataLayer) {
+    console.log(`Can't find GTM dataLayer object - exiting the analytics function!`)
+    return;
+  }
 
   if (reason?.inExperiment === true) {
-    console.log(`##ANALYTICS## Flag ${flagKey} was evaluated to ${value} with variation index: ${variationIndex} and reason: ${reason}`);
+    console.log(`##ANALYTICS## Flag ${flagKey} was evaluated to ${value} with variation index: ${variationIndex} and reason: ${reason.kind}`);
+    console.log(`##Analytucs## User id: ${ldDefaultContext.key}`);
+  } else {
+    console.log(`##ANALYTICS## Flag ${flagKey} was evaluated to ${value} but this evaluation was not part of an experiment! The evaluation reason is ${reason.kind}.`);
   }
 }
 
