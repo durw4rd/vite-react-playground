@@ -29,6 +29,15 @@ const flagEvalHandler = (flagKey, flagDetail) => {
   if (reason?.inExperiment === true) {
     console.log(`##ANALYTICS## Flag ${flagKey} was evaluated to ${value} with variation index: ${variationIndex} and reason: ${reason.kind}`);
     console.log(`##Analytucs## User id: ${ldDefaultContext.key}`);
+
+    window.dataLayer.push({
+      event: 'ld_experiment_evaluation',
+      flagKey: flagKey,
+      variation: value,
+      variationIndex: variationIndex,
+      userID: ldDefaultContext.key
+    });
+
   } else {
     console.log(`##ANALYTICS## Flag ${flagKey} was evaluated to ${value} but this evaluation was not part of an experiment! The evaluation reason is ${reason.kind}.`);
   }
