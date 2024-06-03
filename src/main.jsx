@@ -33,7 +33,7 @@ const flagEvalHandler = (flagKey, flagDetail) => {
     window.dataLayer.push({
       event: 'ld_experiment_evaluation',
       flagKey: flagKey,
-      variation: value,
+      variationValue: value,
       variationIndex: variationIndex,
       userID: ldDefaultContext.key
     });
